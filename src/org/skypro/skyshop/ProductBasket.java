@@ -1,5 +1,7 @@
 package org.skypro.skyshop;
 
+import java.util.Objects;
+
 public class ProductBasket {
 
     private Product[] basket = new Product[5];
@@ -49,7 +51,7 @@ public class ProductBasket {
     public boolean findProduct(String product){
         for (Product element: basket){
             if (element != null){
-                if (element.getName() == product){
+                if (Objects.equals(element.getName(),product)){
                     return true;
                 }
             }
