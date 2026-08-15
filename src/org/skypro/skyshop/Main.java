@@ -1,15 +1,16 @@
 package org.skypro.skyshop;
 
+import java.util.Objects;
+
 public class Main {
     public static void main(String[] args) {
 
-        Product tomato = new Product("Tomato",50);
-        Product cheese = new Product("Cheese",100);
-        Product sausage = new Product("Sausage",120);
-        Product onion = new Product("Onion",40);
-        Product mushroom = new Product("Mushroom",70);
-        Product cucumber = new Product("Cucumber",60);
-
+        Product tomato = new SimpleProduct("Tomato",50);
+        Product cheese = new DiscountedProduct("Cheese",100, 20);
+        Product sausage = new FixPriceProduct("Sausage");
+        Product onion = new SimpleProduct("Onion",40);
+        Product mushroom = new SimpleProduct("Mushroom",70);
+        Product cucumber = new SimpleProduct("Cucumber",60);
 
         ProductBasket pb = new ProductBasket();
 
@@ -29,6 +30,7 @@ public class Main {
         System.out.println("3/////////////////////////");
         pb.getBasket();
 
+/*
         //4
         System.out.println("4/////////////////////////");
         System.out.println(pb.getTotalPrice());
@@ -56,6 +58,7 @@ public class Main {
         //10
         System.out.println("10/////////////////////////");
         System.out.println(pb.findProduct("Onion"));
+*/
 
     }
 }

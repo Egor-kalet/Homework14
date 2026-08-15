@@ -6,6 +6,7 @@ public class ProductBasket {
 
     private Product[] basket = new Product[5];
 
+
     public void adProduct(Product product){
         if (product != null) {
 
@@ -34,11 +35,15 @@ public class ProductBasket {
         int sum = 0;
         int i = 0;
         int c = 0;
+        int specialProducts = 0;
         for (Product element: basket){
             if (element != null){
-                System.out.println(element.getName() + ": " + element.getPrice());
+                System.out.println(element.toString());
                 sum += element.getPrice();
                 c = 1;
+                if (element.isSpecial()){
+                    specialProducts++;
+                }
             }
         }
         if (c == 0){
@@ -46,6 +51,7 @@ public class ProductBasket {
         }else {
             System.out.println("Итого: " + sum);
         }
+        System.out.println("Специальных товаров: " + specialProducts);
     }
 
     public boolean findProduct(String product){
