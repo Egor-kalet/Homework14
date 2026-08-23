@@ -1,6 +1,9 @@
 package org.skypro.skyshop;
 
-import java.util.Objects;
+import org.skypro.skyshop.article.Article;
+import org.skypro.skyshop.product.*;
+import org.skypro.skyshop.search.SearchEngine;
+import org.skypro.skyshop.search.Searchable;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,8 +14,70 @@ public class Main {
         Product onion = new SimpleProduct("Onion",40);
         Product mushroom = new SimpleProduct("Mushroom",70);
         Product cucumber = new SimpleProduct("Cucumber",60);
+        Product bread = new SimpleProduct("Bread",30);
+        Product chocolate = new SimpleProduct("Сhocolate",70);
+        Product water = new SimpleProduct("Water",40);
 
         ProductBasket pb = new ProductBasket();
+
+        Article f1 = new Article("Гран-при Монако: битва титанов на улицах княжества",
+                "Обзор захватывающей гонки Формулы-1 в Монако, стратегии пилотов, неожиданные обгоны и борьба за чемпионские очки в самом престижном этапе сезона.");
+        Article rally = new Article("Дакар-2025: экстремальный марафон через пустыни и горы",
+                "Репортаж о легендарном ралли-рейде Дакар, сложнейшие этапы по пескам Саудовской Аравии, технические поломки и героизм экипажей на пределе возможностей.");
+        Article nascar = new Article("Дайтона-500: 200 кругов адреналина на овале скорости",
+                "Анализ главной гонки NASCAR, тактика драфтинга, массовые аварии на высокой скорости и борьба за победу в самой престижной гонке Америки.");
+        Article drift = new Article("Короли заноса: чемпионат мира по дрифту в Японии",
+                "Репортаж с этапа D1 Grand Prix, техника управляемого заноса, оценка судей за стиль и точность, интервью с пилотами о мастерстве контроля автомобиля.");
+        Article lemans = new Article("24 часа Ле-Мана: марафон выносливости для машин и пилотов",
+                "Хроника легендарной гонки на выносливость, смена экипажей, ночные заезды, борьба прототипов LMP1 и GT-классов за победу в самом сложном испытании автоспорта.");
+        Article moto = new Article("MotoGP: королевский класс мотоциклетных гонок",
+                        "Обзор сезона MotoGP, противостояние заводских команд, невероятные наклоны в поворотах и скорость свыше 350 км/ч на прямых участках трасс.");
+        Article karting = new Article("От картинга до Формулы-1: где рождаются чемпионы",
+                "Исследование роли картинга как стартовой площадки для будущих звезд автоспорта, методики тренировок юных пилотов и развитие гоночных навыков с детства.");
+        Article gtClass = new Article("Нюрбургринг-24: адская гонка на Северной петле",
+                "Репортаж о суточной гонке на легендарной трассе Нюрбургринг, сложнейшие погодные условия, плотный трафик из 200 машин и борьба за выживание на трассе.");
+        Article electric = new Article("Формула-E: тихая революция в мире автоспорта",
+                "Анализ развития электрических гоночных серий, особенности стратегии с управлением энергией, городские трассы и привлечение новой аудитории к автоспорту.");
+        Article historicle = new Article("Гудвудский фестиваль скорости: путешествие в прошлое автоспорта",
+                "Обзор знаменитого фестиваля в Гудвуде, подъем на холм на классических болидах, встречи с легендами гонок и атмосфера праздника автомобильной истории.");
+
+
+        SearchEngine searchEngine = new SearchEngine(19);
+
+        searchEngine.add(tomato);
+        searchEngine.add(cheese);
+        searchEngine.add(sausage);
+        searchEngine.add(onion);
+        searchEngine.add(mushroom);
+        searchEngine.add(cucumber);
+        searchEngine.add(bread);
+        searchEngine.add(chocolate);
+        searchEngine.add(water);
+
+
+        searchEngine.add(f1);
+        searchEngine.add(rally);
+        searchEngine.add(nascar);
+        searchEngine.add(drift);
+        searchEngine.add(lemans);
+        searchEngine.add(moto);
+        searchEngine.add(karting);
+        searchEngine.add(gtClass);
+        searchEngine.add(electric);
+        searchEngine.add(historicle);
+
+        Searchable[] results1 = searchEngine.search("чемпионат");
+        System.out.println();
+        Searchable[] results2 = searchEngine.search("Cucumber");
+        System.out.println();
+        Searchable[] results3 = searchEngine.search("марафон");
+        System.out.println();
+        Searchable[] results4 = searchEngine.search("o");
+        System.out.println();
+        Searchable[] results5 = searchEngine.search(",");
+
+
+/*
 
         //1
         System.out.println("1/////////////////////////");
@@ -22,6 +87,7 @@ public class Main {
         pb.adProduct(onion);
         pb.adProduct(mushroom);
 
+
         //2
         System.out.println("2/////////////////////////");
         pb.adProduct(cucumber);
@@ -30,7 +96,7 @@ public class Main {
         System.out.println("3/////////////////////////");
         pb.getBasket();
 
-/*
+
         //4
         System.out.println("4/////////////////////////");
         System.out.println(pb.getTotalPrice());
