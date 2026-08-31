@@ -6,6 +6,8 @@ public interface Searchable {
 
     String getName();
 
+    String getContent();
+
     String getContentType();
 
     default String getStringRepresentation(){

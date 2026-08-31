@@ -1,5 +1,9 @@
 package org.skypro.skyshop;
 
+import org.skypro.skyshop.Exceptions.BestResultNotFound;
+import org.skypro.skyshop.Exceptions.DiscountProductDiscountException;
+import org.skypro.skyshop.Exceptions.ProductNameException;
+import org.skypro.skyshop.Exceptions.ProductPriceException;
 import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.product.*;
 import org.skypro.skyshop.search.SearchEngine;
@@ -8,15 +12,25 @@ import org.skypro.skyshop.search.Searchable;
 public class Main {
     public static void main(String[] args) {
 
-        Product tomato = new SimpleProduct("Tomato",50);
-        Product cheese = new DiscountedProduct("Cheese",100, 20);
-        Product sausage = new FixPriceProduct("Sausage");
-        Product onion = new SimpleProduct("Onion",40);
-        Product mushroom = new SimpleProduct("Mushroom",70);
-        Product cucumber = new SimpleProduct("Cucumber",60);
-        Product bread = new SimpleProduct("Bread",30);
-        Product chocolate = new SimpleProduct("Сhocolate",70);
-        Product water = new SimpleProduct("Water",40);
+        try {
+            Product tomato = new SimpleProduct("",50);
+            Product cheese = new DiscountedProduct("Cheese",100, 120);
+            Product sausage = new FixPriceProduct(null);
+            Product onion = new SimpleProduct("Onion",-40);
+
+            Product mushroom = new SimpleProduct("Mushroom",70);
+            Product cucumber = new SimpleProduct("Cucumber",60);
+            Product bread = new SimpleProduct("Bread",30);
+            Product chocolate = new SimpleProduct("Сhocolate",70);
+            Product water = new SimpleProduct("Water",40);
+        }catch (ProductNameException e){
+            System.out.println("Значение названия товара пустое или задано некорректно");
+        } catch (ProductPriceException e) {
+            System.out.println("Цена товара должна быть больше нуля");
+        }catch (DiscountProductDiscountException e){
+            System.out.println("Процент скидки должен быть числом в диапазоне от 0 до 100 включительно");
+        }
+
 
         ProductBasket pb = new ProductBasket();
 
@@ -44,15 +58,15 @@ public class Main {
 
         SearchEngine searchEngine = new SearchEngine(19);
 
-        searchEngine.add(tomato);
-        searchEngine.add(cheese);
-        searchEngine.add(sausage);
-        searchEngine.add(onion);
-        searchEngine.add(mushroom);
-        searchEngine.add(cucumber);
-        searchEngine.add(bread);
-        searchEngine.add(chocolate);
-        searchEngine.add(water);
+//        searchEngine.add(tomato);
+//        searchEngine.add(cheese);
+//        searchEngine.add(sausage);
+//        searchEngine.add(onion);
+//        searchEngine.add(mushroom);
+//        searchEngine.add(cucumber);
+//        searchEngine.add(bread);
+//        searchEngine.add(chocolate);
+//        searchEngine.add(water);
 
 
         searchEngine.add(f1);
@@ -66,15 +80,28 @@ public class Main {
         searchEngine.add(electric);
         searchEngine.add(historicle);
 
-        Searchable[] results1 = searchEngine.search("чемпионат");
-        System.out.println();
-        Searchable[] results2 = searchEngine.search("Cucumber");
-        System.out.println();
-        Searchable[] results3 = searchEngine.search("марафон");
-        System.out.println();
-        Searchable[] results4 = searchEngine.search("o");
-        System.out.println();
-        Searchable[] results5 = searchEngine.search(",");
+        try{
+            System.out.println("Результаты поиска по: на");
+            Searchable results1 = searchEngine.getSearchTerm("на");
+            System.out.println("Наиболее подходящий элемент:\n" + results1);
+            System.out.println();
+            System.out.println("Результаты поиска по: qwer");
+            Searchable results2 = searchEngine.getSearchTerm("qwer");
+            System.out.println("Наиболее подходящий элемент:\n" + results1);
+        }catch (BestResultNotFound e){
+            System.out.println("Количество совпадений - 0");
+        }
+
+
+
+//        System.out.println();
+//        Searchable[] results2 = searchEngine.search("Cucumber");
+//        System.out.println();
+//        Searchable[] results3 = searchEngine.search("марафон");
+//        System.out.println();
+//        Searchable[] results4 = searchEngine.search("o");
+//        System.out.println();
+//        Searchable[] results5 = searchEngine.search(",");
 
 
 /*
