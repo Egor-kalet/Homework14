@@ -1,5 +1,8 @@
 package org.skypro.skyshop.product;
 
+import org.skypro.skyshop.DiscountProductDiscountException;
+import org.skypro.skyshop.ProductPriceException;
+
 public class DiscountedProduct extends Product{
     private int basePrice;
     private int discount;
@@ -7,6 +10,13 @@ public class DiscountedProduct extends Product{
 
     public DiscountedProduct(String name, int basePrice, int discount) {
         super(name);
+        if (basePrice <= 0){
+            throw new ProductPriceException();
+        }
+
+        if (discount < 0 || discount > 100){
+            throw new DiscountProductDiscountException();
+        }
         this.basePrice = basePrice;
         this.discount = discount;
     }
