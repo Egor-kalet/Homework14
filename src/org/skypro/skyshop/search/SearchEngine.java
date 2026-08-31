@@ -1,8 +1,6 @@
 package org.skypro.skyshop.search;
 
-import org.skypro.skyshop.BestResultNotFound;
-
-import java.util.Arrays;
+import org.skypro.skyshop.Exceptions.BestResultNotFound;
 
 public class SearchEngine {
 
@@ -49,6 +47,7 @@ public class SearchEngine {
         int count2 = 0;
         int index = 0;
         Searchable maxSuitable = null;
+
         for (int i = 0; i < searchList.length; i++){
             Searchable element = searchList[i];
             if (element != null){

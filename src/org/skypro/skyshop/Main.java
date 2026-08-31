@@ -1,5 +1,9 @@
 package org.skypro.skyshop;
 
+import org.skypro.skyshop.Exceptions.BestResultNotFound;
+import org.skypro.skyshop.Exceptions.DiscountProductDiscountException;
+import org.skypro.skyshop.Exceptions.ProductNameException;
+import org.skypro.skyshop.Exceptions.ProductPriceException;
 import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.product.*;
 import org.skypro.skyshop.search.SearchEngine;
