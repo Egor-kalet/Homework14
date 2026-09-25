@@ -2,43 +2,35 @@ package org.skypro.skyshop.search;
 
 import org.skypro.skyshop.Exceptions.BestResultNotFound;
 
+import java.util.LinkedList;
+
 public class SearchEngine {
 
-    private Searchable[] searchList;
+    private LinkedList<Searchable> searchList = new LinkedList<>(); // ← вот так
 
-    public SearchEngine(int leng) {
-        this.searchList = new Searchable[leng];
-    }
 
-    public Searchable[] search(String searchQuery){
+
+    public LinkedList<Searchable> search(String searchQuery){
         System.out.println("Результаты поиска по: " + searchQuery);
         int count = 0;
-        Searchable[] results = new Searchable[5];
-        for (int i = 0; i < searchList.length; i++){
-            Searchable element = searchList[i];
+        LinkedList<Searchable> results = new LinkedList<>();
+        for (int i = 0; i < searchList.size(); i++){
+            Searchable element = searchList.get(i);
             if (element != null){
                 if (element.getSearchTerm().toLowerCase().contains(searchQuery.toLowerCase())){
-                    results[count] = element;
-                    System.out.println((count + 1) + ") " + results[count].toString());
+                    results.add(element);
+                    System.out.println((count + 1) + ") " + results.get(count).toString());
                     count++;
-                    if (count == 5){
-                        break;
-                    }
                 }
             }
         }
         return results;
     }
 
-    public void add(Searchable elements){
+    public void add(Searchable element){
 
-        if (elements != null){
-            for (int i = 0; i < searchList.length; i++){
-                if (searchList[i] == null){
-                    searchList[i] = elements;
-                    break;
-                }
-            }
+        if (element != null){
+            searchList.add(element);
         }
     }
 
@@ -48,8 +40,8 @@ public class SearchEngine {
         int index = 0;
         Searchable maxSuitable = null;
 
-        for (int i = 0; i < searchList.length; i++){
-            Searchable element = searchList[i];
+        for (int i = 0; i < searchList.size(); i++){
+            Searchable element = searchList.get(i);
             if (element != null){
                 if (element.getSearchTerm().toLowerCase().contains(searchQuery.toLowerCase())){
 
