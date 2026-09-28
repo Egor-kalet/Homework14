@@ -10,6 +10,7 @@ import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
 import java.util.LinkedList;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -93,16 +94,17 @@ public class Main {
 
 
         System.out.println();
-        LinkedList<Searchable> results2 = searchEngine.search("Cucumber");
+        Map<String, Searchable> results2 = searchEngine.search("Cucumber");
         System.out.println();
-        LinkedList<Searchable> results3 = searchEngine.search("марафон");
+        Map<String, Searchable> results3 = searchEngine.search("марафон");
         System.out.println();
-        LinkedList<Searchable> results4 = searchEngine.search("o");
+        Map<String, Searchable> results4 = searchEngine.search("o");
         System.out.println();
-        LinkedList<Searchable> results5 = searchEngine.search(",");
+        Map<String, Searchable> results5 = searchEngine.search(",");
 
 
         System.out.println("1/////////////////////////");
+
         pb.adProduct(tomato);
         pb.adProduct(cheese);
         pb.adProduct(sausage);

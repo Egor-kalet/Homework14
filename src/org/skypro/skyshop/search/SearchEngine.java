@@ -3,6 +3,8 @@ package org.skypro.skyshop.search;
 import org.skypro.skyshop.Exceptions.BestResultNotFound;
 
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class SearchEngine {
 
@@ -10,19 +12,21 @@ public class SearchEngine {
 
 
 
-    public LinkedList<Searchable> search(String searchQuery){
+    public Map<String, Searchable> search(String searchQuery){
         System.out.println("Результаты поиска по: " + searchQuery);
-        int count = 0;
-        LinkedList<Searchable> results = new LinkedList<>();
-        for (int i = 0; i < searchList.size(); i++){
+        Map<String, Searchable> results = new TreeMap();
+        for (int i = 0; i < searchList.size(); i++) {
             Searchable element = searchList.get(i);
-            if (element != null){
-                if (element.getSearchTerm().toLowerCase().contains(searchQuery.toLowerCase())){
-                    results.add(element);
-                    System.out.println((count + 1) + ") " + results.get(count).toString());
-                    count++;
+            if (element != null) {
+                if (element.getSearchTerm().toLowerCase().contains(searchQuery.toLowerCase())) {
+                    results.put(element.getName(), element);
                 }
             }
+        }
+        int count = 1;
+        for (Map.Entry<String,Searchable> map: results.entrySet()){
+            System.out.println(count + ") " + map.getKey() + " " + map.getValue());
+            count++;
         }
         return results;
     }

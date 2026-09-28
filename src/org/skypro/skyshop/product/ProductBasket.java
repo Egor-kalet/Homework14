@@ -1,19 +1,19 @@
 package org.skypro.skyshop.product;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Objects;
+import java.util.*;
 
 public class ProductBasket {
 
-    private LinkedList<Product> basket = new LinkedList<>();
-    private LinkedList<Product> deleted = new LinkedList<>();
+    private Map<String,LinkedList<Product>> basket = new HashMap<>();
+    String basketName = "Корзина 1";
 
 
     public void adProduct(Product product){
         if (product != null) {
-
-            basket.add(product);
+            if (!basket.containsKey(basketName)){
+                basket.put(basketName, new LinkedList<Product>());
+            }
+            basket.get(basketName).add(product);
         }
     }
 
@@ -26,7 +26,7 @@ public class ProductBasket {
         int sum = 0;
         int specialProducts = 0;
         if (!(basket.isEmpty())){
-            for (Product element: basket){
+            for (Product element: basket.get(basketName)){
                 System.out.println(element.toString());
                 sum += element.getPrice();
                 if (element.isSpecial()){
@@ -44,7 +44,7 @@ public class ProductBasket {
     }
 
     public boolean findProduct(String product){
-        for (Product element: basket){
+        for (Product element: basket.get(basketName)){
             if (element != null){
                 if (Objects.equals(element.getName(),product)){
                     return true;
@@ -56,7 +56,7 @@ public class ProductBasket {
 
     public int getTotalPrice(){
         int total = 0;
-        for (Product element: basket){
+        for (Product element: basket.get(basketName)){
             if (element != null){
                 total += element.getPrice();
             }
@@ -65,16 +65,19 @@ public class ProductBasket {
     }
 
     public LinkedList<Product> deleteProduct(String name){
+        LinkedList<Product> deleted = new LinkedList<>();
         if (name == null){
             System.out.println("Имя не задано");
         }else
         {
-            Iterator<Product> iterator = basket.iterator();
-            while (iterator.hasNext()){
-                Product element = iterator.next();
-                if (Objects.equals(element.getName(), name)){
-                    deleted.add(element);
-                    iterator.remove();
+            for (LinkedList<Product> list: basket.values()) {
+                Iterator<Product> iterator = list.iterator();
+                while (iterator.hasNext()) {
+                    Product element = iterator.next();
+                    if (Objects.equals(element.getName(), name)) {
+                        deleted.add(element);
+                        iterator.remove();
+                    }
                 }
             }
         }
