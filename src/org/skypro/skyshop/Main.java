@@ -9,8 +9,10 @@ import org.skypro.skyshop.product.*;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -70,15 +72,15 @@ public class Main {
 
         SearchEngine searchEngine = new SearchEngine();
 
-        searchEngine.add(tomato);
-        searchEngine.add(cheese);
-        searchEngine.add(sausage);
-        searchEngine.add(onion);
-        searchEngine.add(mushroom);
-        searchEngine.add(cucumber);
-        searchEngine.add(bread);
-        searchEngine.add(chocolate);
-        searchEngine.add(water);
+//        searchEngine.add(tomato);
+//        searchEngine.add(cheese);
+//        searchEngine.add(sausage);
+//        searchEngine.add(onion);
+//        searchEngine.add(mushroom);
+//        searchEngine.add(cucumber);
+//        searchEngine.add(bread);
+//        searchEngine.add(chocolate);
+//        searchEngine.add(water);
 
 
         searchEngine.add(f1);
@@ -94,13 +96,13 @@ public class Main {
 
 
         System.out.println();
-        Map<String, Searchable> results2 = searchEngine.search("Cucumber");
+        Set<Searchable> results2 = searchEngine.search("Cucumber");
         System.out.println();
-        Map<String, Searchable> results3 = searchEngine.search("марафон");
+        Set<Searchable> results3 = searchEngine.search("марафон");
         System.out.println();
-        Map<String, Searchable> results4 = searchEngine.search("o");
+        Set<Searchable> results4 = searchEngine.search("o");
         System.out.println();
-        Map<String, Searchable> results5 = searchEngine.search(",");
+        Set<Searchable> results5 = searchEngine.search(",");
 
 
         System.out.println("1/////////////////////////");

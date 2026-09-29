@@ -2,30 +2,39 @@ package org.skypro.skyshop.search;
 
 import org.skypro.skyshop.Exceptions.BestResultNotFound;
 
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class SearchEngine {
 
-    private LinkedList<Searchable> searchList = new LinkedList<>(); // ← вот так
+    private Set<Searchable> searchList = new HashSet<>(); // ← вот так
+    Set<Searchable> results = new TreeSet<>(new Comparator<Searchable>(){
+        @Override
+        public int compare(Searchable e1, Searchable e2) {
+            int nameLenghtCompare = Integer.compare(e2.getName().length(), e1.getName().length());
+            if (nameLenghtCompare != 0) {
+                return nameLenghtCompare;
+            }
+            return e1.getName().compareTo(e2.getName());
+        }
+
+    });
 
 
 
-    public Map<String, Searchable> search(String searchQuery){
+    public Set<Searchable> search(String searchQuery){
+        results.clear();
         System.out.println("Результаты поиска по: " + searchQuery);
-        Map<String, Searchable> results = new TreeMap();
-        for (int i = 0; i < searchList.size(); i++) {
-            Searchable element = searchList.get(i);
+        for (Searchable e: searchList) {
+            Searchable element = e;
             if (element != null) {
                 if (element.getSearchTerm().toLowerCase().contains(searchQuery.toLowerCase())) {
-                    results.put(element.getName(), element);
+                    results.add(element);
                 }
             }
         }
         int count = 1;
-        for (Map.Entry<String,Searchable> map: results.entrySet()){
-            System.out.println(count + ") " + map.getKey() + " " + map.getValue());
+        for (Searchable set: results){
+            System.out.println(count + ") " + set.getName() + " " + set.getContent());
             count++;
         }
         return results;
@@ -44,8 +53,8 @@ public class SearchEngine {
         int index = 0;
         Searchable maxSuitable = null;
 
-        for (int i = 0; i < searchList.size(); i++){
-            Searchable element = searchList.get(i);
+        for (Searchable e: searchList){
+            Searchable element = e;
             if (element != null){
                 if (element.getSearchTerm().toLowerCase().contains(searchQuery.toLowerCase())){
 
@@ -74,5 +83,6 @@ public class SearchEngine {
         }
         return maxSuitable;
     }
+
 
 }
