@@ -23,44 +23,36 @@ public class ProductBasket {
     }
 
     public void getBasket(){
-        int sum = 0;
-        int specialProducts = 0;
         if (!(basket.isEmpty())){
-            for (Product element: basket.get(basketName)){
-                System.out.println(element.toString());
-                sum += element.getPrice();
-                if (element.isSpecial()){
-                    specialProducts++;
-                }
-            }
+            basket.values().stream()
+                    .flatMap(List::stream)
+                    .forEach(e -> System.out.println(e.toString()));
         }
+        int sum = basket.values().stream()
+                .flatMap(List::stream)
+                .mapToInt(Product::getPrice)
+                .sum();
 
         if (basket.isEmpty()){
             System.out.println("в корзине пусто");
         }else {
             System.out.println("Итого: " + sum);
-            System.out.println("Специальных товаров: " + specialProducts);
+            System.out.println("Специальных товаров: " + getSpecialCount(basket.get(basketName)));
         }
     }
 
     public boolean findProduct(String product){
-        for (Product element: basket.get(basketName)){
-            if (element != null){
-                if (Objects.equals(element.getName(),product)){
-                    return true;
-                }
-            }
-        }
-        return false;
+
+        return basket.get(basketName).stream()
+                .anyMatch(e -> Objects.equals(e.getName(), product));
+
     }
 
     public int getTotalPrice(){
-        int total = 0;
-        for (Product element: basket.get(basketName)){
-            if (element != null){
-                total += element.getPrice();
-            }
-        }
+        int total = basket.values().stream()
+                .flatMap(List::stream)
+                .mapToInt(Product::getPrice)
+                .sum();
         return total;
     }
 
@@ -70,16 +62,10 @@ public class ProductBasket {
             System.out.println("Имя не задано");
         }else
         {
-            for (LinkedList<Product> list: basket.values()) {
-                Iterator<Product> iterator = list.iterator();
-                while (iterator.hasNext()) {
-                    Product element = iterator.next();
-                    if (Objects.equals(element.getName(), name)) {
-                        deleted.add(element);
-                        iterator.remove();
-                    }
-                }
-            }
+            deleted.addAll(basket.get(basketName).stream()
+                    .filter(e -> Objects.equals(e.getName(), name))
+                    .toList());
+            basket.get(basketName).removeIf(e -> Objects.equals(e.getName(), name));
         }
         if (deleted.isEmpty()){
             System.out.println("Список пуст");
@@ -87,5 +73,10 @@ public class ProductBasket {
         return deleted;
     }
 
+    private long getSpecialCount(List<Product> products) {
+        return products.stream()
+                .filter(Product::isSpecial)
+                .count();
+    }
 
 }
